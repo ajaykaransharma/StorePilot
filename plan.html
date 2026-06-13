@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopify Growth Toolkit - Documentation</title>
+    <meta name="description" content="Complete Shopify Merchant Toolkit Documentation — features, pricing, roadmap, and tech stack.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #0a0e1a;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --bg-card-hover: rgba(255, 255, 255, 0.07);
+            --sidebar-bg: rgba(15, 20, 35, 0.95);
+            --accent: #6c63ff;
+            --accent2: #00d4aa;
+            --accent3: #ff6b6b;
+            --text-primary: #f0f4ff;
+            --text-secondary: #8892a4;
+            --text-muted: #4a5568;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-active: rgba(108, 99, 255, 0.6);
+            --sidebar-width: 270px;
+            --header-h: 64px;
+            --glow: 0 0 30px rgba(108, 99, 255, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ─── Background Orbs ─── */
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        body::before {
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(108,99,255,.12) 0%, transparent 70%);
+            top: -200px; left: -200px;
+        }
+        body::after {
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(0,212,170,.08) 0%, transparent 70%);
+            bottom: -150px; right: -150px;
+        }
+
+        /* ─── Top Header ─── */
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: var(--header-h);
+            background: rgba(10, 14, 26, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 28px;
+            z-index: 100;
+            gap: 16px;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 36px; height: 36px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.4);
+            flex-shrink: 0;
+        }
+
+        header h1 {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        header p {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .header-badge {
+            margin-left: auto;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* ─── Layout Wrapper ─── */
+        .layout {
+            display: flex;
+            min-height: 100vh;
+            padding-top: var(--header-h);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ─── Sidebar ─── */
+        .sidebar {
+            width: var(--sidebar-width);
+            position: fixed;
+            top: var(--header-h);
+            left: 0;
+            bottom: 0;
+            background: var(--sidebar-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+            padding: 24px 16px;
+            z-index: 90;
+        }
+
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-track { background: transparent; }
+        .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+        .sidebar-section-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            padding: 0 12px;
+            margin-bottom: 8px;
+            margin-top: 20px;
+        }
+
+        .sidebar-section-label:first-child { margin-top: 0; }
+
+        .tab-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 11px 14px;
+            border: none;
+            border-radius: 10px;
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+            font-size: 13.5px;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+            margin-bottom: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            border-radius: 10px;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+            background: var(--bg-card-hover);
+        }
+
+        .tab-btn.active {
+            color: #fff;
+            background: linear-gradient(135deg, rgba(108,99,255,0.25), rgba(0,212,170,0.12));
+            border: 1px solid var(--border-active);
+            box-shadow: var(--glow);
+        }
+
+        .tab-btn.active .tab-icon {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tab-icon {
+            font-size: 17px;
+            flex-shrink: 0;
+            width: 20px;
+            text-align: center;
+        }
+
+        .tab-badge {
+            margin-left: auto;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 10px;
+            background: rgba(108,99,255,0.2);
+            color: var(--accent);
+            border: 1px solid rgba(108,99,255,0.3);
+        }
+
+        /* ─── Main Content ─── */
+        .main {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 36px 40px;
+            min-height: calc(100vh - var(--header-h));
+        }
+
+        /* ─── Tab Panels ─── */
+        .tab-panel {
+            display: none;
+            animation: fadeSlideIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tab-panel.active { display: block; }
+
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ─── Page Titles ─── */
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        .page-header h2 {
+            font-size: 26px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 6px;
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .divider {
+            width: 48px; height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            border-radius: 2px;
+            margin-top: 10px;
+        }
+
+        /* ─── Cards ─── */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px 28px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            border-color: rgba(108,99,255,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(108,99,255,0.12);
+        }
+
+        .card h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h3 .card-icon {
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 15px;
+            flex-shrink: 0;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.75;
+        }
+
+        /* ─── Feature Grid ─── */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            opacity: 0;
+            transition: opacity 0.25s;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(108,99,255,0.35);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 36px rgba(108,99,255,0.15);
+        }
+
+        .feature-card:hover::after { opacity: 1; }
+
+        .feature-card-icon {
+            font-size: 26px;
+            margin-bottom: 12px;
+        }
+
+        .feature-card h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .feature-card p {
+            font-size: 12.5px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ─── List Styles ─── */
+        .styled-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .styled-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 8px 0;
+            color: var(--text-secondary);
+            font-size: 14px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .styled-list li:last-child { border-bottom: none; }
+
+        .styled-list li::before {
+            content: '▸';
+            color: var(--accent);
+            font-size: 12px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        /* ─── Pricing Cards ─── */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 20px;
+        }
+
+        .plan-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .plan-card.featured {
+            border-color: var(--border-active);
+            background: linear-gradient(135deg, rgba(108,99,255,0.12), rgba(0,212,170,0.06));
+        }
+
+        .plan-card.featured::before {
+            content: '⭐ Popular';
+            position: absolute;
+            top: 12px; right: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            padding: 3px 10px;
+            border-radius: 20px;
+            color: #fff;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 48px rgba(108,99,255,0.2);
+            border-color: rgba(108,99,255,0.5);
+        }
+
+        .plan-name {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .plan-price {
+            font-size: 36px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 4px;
+        }
+
+        .plan-price span {
+            font-size: 14px;
+            color: var(--text-muted);
+            -webkit-text-fill-color: var(--text-muted);
+        }
+
+        .plan-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 16px 0;
+        }
+
+        .plan-features {
+            list-style: none;
+            text-align: left;
+        }
+
+        .plan-features li {
+            font-size: 13px;
+            color: var(--text-secondary);
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .plan-features li::before {
+            content: '✓';
+            color: var(--accent2);
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        /* ─── Table ─── */
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13.5px;
+        }
+
+        .styled-table thead tr {
+            background: linear-gradient(135deg, rgba(108,99,255,0.2), rgba(0,212,170,0.1));
+        }
+
+        .styled-table th {
+            padding: 13px 18px;
+            text-align: left;
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 12px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border-active);
+        }
+
+        .styled-table td {
+            padding: 12px 18px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .styled-table tbody tr {
+            transition: background 0.15s;
+        }
+
+        .styled-table tbody tr:hover {
+            background: var(--bg-card-hover);
+        }
+
+        .styled-table tbody tr:last-child td { border-bottom: none; }
+
+        .table-tag {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            background: rgba(108,99,255,0.15);
+            color: var(--accent);
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(108,99,255,0.2);
+        }
+
+        /* ─── Tech Stack Chips ─── */
+        .tech-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .tech-chip {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 30px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .tech-chip:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+            background: rgba(108,99,255,0.12);
+        }
+
+        .tech-chip-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* ─── Roadmap ─── */
+        .roadmap-timeline {
+            position: relative;
+            padding-left: 32px;
+        }
+
+        .roadmap-timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px; top: 0; bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent), var(--accent2), transparent);
+        }
+
+        .roadmap-phase {
+            position: relative;
+            margin-bottom: 32px;
+        }
+
+        .roadmap-phase::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 4px;
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            box-shadow: 0 0 12px rgba(108,99,255,0.5);
+        }
+
+        .phase-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+
+        .roadmap-phase h4 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        /* ─── Info Banner ─── */
+        .info-banner {
+            background: linear-gradient(135deg, rgba(108,99,255,0.15), rgba(0,212,170,0.08));
+            border: 1px solid rgba(108,99,255,0.25);
+            border-radius: 14px;
+            padding: 20px 24px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .info-banner-icon { font-size: 24px; }
+
+        .info-banner p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .info-banner strong { color: var(--text-primary); }
+
+        /* ─── Scrollbar ─── */
+        .main::-webkit-scrollbar { width: 6px; }
+        .main::-webkit-scrollbar-track { background: transparent; }
+        .main::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+        /* ─── Footer ─── */
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--text-muted);
+            font-size: 12px;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+
+        /* ─── Sub Feature Items ─── */
+        .sub-feature-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 8px;
+        }
+
+        .sub-feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 0;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .sub-feature-list li::before {
+            content: '◦';
+            color: var(--accent2);
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        /* ─── Feature Detail Cards Grid ─── */
+        .feature-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+        }
+
+        .feature-detail-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-detail-card:hover {
+            border-color: rgba(108,99,255,0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 32px rgba(108,99,255,0.14);
+        }
+
+        .fdc-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .fdc-num {
+            width: 28px; height: 28px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 11px;
+            font-weight: 800;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .fdc-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .fdc-icon {
+            margin-left: auto;
+            font-size: 20px;
+        }
+
+        /* ─── Problem / Solution ─── */
+        .problem-solution-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 680px) {
+            .problem-solution-grid { grid-template-columns: 1fr; }
+        }
+
+        .ps-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.2s;
+        }
+
+        .ps-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(0,0,0,0.2);
+        }
+
+        .ps-card.problem { border-top: 3px solid #ff6b6b; }
+        .ps-card.solution { border-top: 3px solid var(--accent2); }
+
+        .ps-title {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .ps-card.problem .ps-title { color: #ff6b6b; }
+        .ps-card.solution .ps-title { color: var(--accent2); }
+
+        /* ─── Plan Comparison Table ─── */
+        .plan-compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13.5px;
+        }
+
+        .plan-compare-table th {
+            padding: 12px 16px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            text-align: center;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        .plan-compare-table th:first-child { text-align: left; }
+
+        .plan-compare-table th.highlight {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .plan-compare-table td {
+            padding: 11px 16px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .plan-compare-table td:first-child {
+            text-align: left;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .plan-compare-table tbody tr:hover { background: var(--bg-card-hover); }
+        .plan-compare-table tbody tr:last-child td { border-bottom: none; }
+
+        .check-yes { color: var(--accent2); font-size: 16px; font-weight: 700; }
+        .check-no  { color: var(--text-muted); font-size: 16px; }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 768px) {
+            :root { --sidebar-width: 220px; }
+            .main { padding: 24px 20px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ── Header ── -->
+    <header>
+        <div class="header-logo">
+            <div class="logo-icon">🚀</div>
+            <div>
+                <h1>SHOPIFY GROWTH TOOLKIT</h1>
+                <p>Complete Merchant Toolkit Documentation</p>
+            </div>
+        </div>
+        <div class="header-badge">v1.0</div>
+    </header>
+
+    <div class="layout">
+
+        <!-- ── Sidebar ── -->
+        <nav class="sidebar" id="sidebar">
+
+            <div class="sidebar-section-label">Overview</div>
+            <button class="tab-btn active" onclick="showTab('vision')" id="btn-vision">
+                <span class="tab-icon">🌟</span> Project Vision
+            </button>
+            <button class="tab-btn" onclick="showTab('goals')" id="btn-goals">
+                <span class="tab-icon">🎯</span> Main Goals
+            </button>
+
+            <div class="sidebar-section-label">Product</div>
+            <button class="tab-btn" onclick="showTab('features')" id="btn-features">
+                <span class="tab-icon">⚡</span> Core Features
+                <span class="tab-badge">15</span>
+            </button>
+            <button class="tab-btn" onclick="showTab('feature-detail')" id="btn-feature-detail">
+                <span class="tab-icon">📋</span> Feature Details
+                <span class="tab-badge">15</span>
+            </button>
+            <button class="tab-btn" onclick="showTab('future')" id="btn-future">
+                <span class="tab-icon">🔮</span> Future Features
+                <span class="tab-badge">15</span>
+            </button>
+            <button class="tab-btn" onclick="showTab('pricing')" id="btn-pricing">
+                <span class="tab-icon">💎</span> Pricing Plans
+            </button>
+            <button class="tab-btn" onclick="showTab('free-vs-paid')" id="btn-free-vs-paid">
+                <span class="tab-icon">⚖️</span> Free vs Paid
+            </button>
+            <button class="tab-btn" onclick="showTab('problems')" id="btn-problems">
+                <span class="tab-icon">💡</span> Problems Solved
+            </button>
+
+            <div class="sidebar-section-label">Technical</div>
+            <button class="tab-btn" onclick="showTab('database')" id="btn-database">
+                <span class="tab-icon">🗄️</span> Database Tables
+            </button>
+            <button class="tab-btn" onclick="showTab('shopify')" id="btn-shopify">
+                <span class="tab-icon">🏪</span> Shopify Tech
+            </button>
+            <button class="tab-btn" onclick="showTab('stack')" id="btn-stack">
+                <span class="tab-icon">🛠️</span> Tech Stack
+            </button>
+
+            <div class="sidebar-section-label">Planning</div>
+            <button class="tab-btn" onclick="showTab('roadmap')" id="btn-roadmap">
+                <span class="tab-icon">🗺️</span> Dev Roadmap
+            </button>
+
+        </nav>
+
+        <!-- ── Main Content ── -->
+        <main class="main">
+
+            <!-- ── Vision ── -->
+            <div class="tab-panel active" id="tab-vision">
+                <div class="page-header">
+                    <h2>🌟 Project Vision</h2>
+                    <p>The big picture behind Shopify Growth Toolkit</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="info-banner">
+                    <span class="info-banner-icon">💡</span>
+                    <p>
+                        <strong>One App. Unlimited Growth.</strong><br>
+                        A single Shopify App containing multiple tools that help merchants increase sales, improve SEO,
+                        automate tasks and manage stores — all from one unified dashboard.
+                    </p>
+                </div>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-card-icon">📈</div>
+                        <h4>Boost Conversions</h4>
+                        <p>Smart tools designed to turn browsers into buyers with minimal friction.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon">🔍</div>
+                        <h4>SEO Automation</h4>
+                        <p>Rank higher on Google with automated meta tags, audits, and AI-generated content.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon">🤖</div>
+                        <h4>AI-Powered</h4>
+                        <p>Leverage cutting-edge AI for product descriptions, SEO, and customer support.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon">💰</div>
+                        <h4>Recurring Revenue</h4>
+                        <p>Generate consistent MRR with tiered SaaS subscription plans.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Goals ── -->
+            <div class="tab-panel" id="tab-goals">
+                <div class="page-header">
+                    <h2>🎯 Main Goals</h2>
+                    <p>What we're here to achieve for Shopify merchants</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">🚀</span> Business Objectives</h3>
+                    <ul class="styled-list">
+                        <li>Increase conversions for Shopify merchants</li>
+                        <li>Improve store SEO ranking and visibility</li>
+                        <li>Reduce manual and repetitive store tasks</li>
+                        <li>Provide powerful automation workflows</li>
+                        <li>Offer premium AI-driven tools for content generation</li>
+                        <li>Generate predictable, recurring monthly revenue (MRR)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ── Core Features ── -->
+            <div class="tab-panel" id="tab-features">
+                <div class="page-header">
+                    <h2>⚡ Core Features</h2>
+                    <p>The power-packed feature set inside the toolkit</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">🛒</span> Conversion Tools</h3>
+                    <ul class="styled-list">
+                        <li>Sticky Add To Cart</li>
+                        <li>Product Badges</li>
+                        <li>Wishlist</li>
+                        <li>Gift Wrap</li>
+                        <li>Size Charts</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">🏬</span> Store Management</h3>
+                    <ul class="styled-list">
+                        <li>Bulk Product Editor</li>
+                        <li>Order Export</li>
+                        <li>Shipping Calculator</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">🔍</span> SEO Tools</h3>
+                    <ul class="styled-list">
+                        <li>Meta Title Generator</li>
+                        <li>Meta Description Generator</li>
+                        <li>Image Alt Text Checker</li>
+                        <li>Store Audit</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">🤖</span> AI Features</h3>
+                    <ul class="styled-list">
+                        <li>AI Product Description Generator</li>
+                        <li>AI SEO Generator</li>
+                        <li>AI Customer Support Assistant</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ── Feature Detail ── -->
+            <div class="tab-panel" id="tab-feature-detail">
+                <div class="page-header">
+                    <h2>📋 Feature Details</h2>
+                    <p>Every tool broken down with its specific capabilities</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="feature-detail-grid">
+
+                    <div class="feature-detail-card">
+                        <div class="fdc-header">
+                            <div class="fdc-num">01</div>
+                            <div class="fdc-title">Product Badges</div>
+                            <span class="fdc-icon">🏷️</span>
+                        </div>
+                        <ul class="sub-feature-list">
+                            <li>Sale Badge</li>
+                            <li>New Arrival Badge</li>
+                            <li>Trending Badge</li>
+                            <li>Custom Badge</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-detail-card">
+                        <div class="fdc-header">
+                            <div class="fdc-num">02</div>
+                            <div class="fdc-title">Sticky Add To Cart</div>
+                            <span class="fdc-icon">🛒</span>
+                        </div>
+                        <ul class="sub-feature-list">
+                            <li>Mobile Sticky Button</li>
+                            <li>Desktop Sticky Button</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-detail-card">
+                        <div class="fdc-header">
+                            <div class="fdc-num">03</div>
+                            <div class="fdc-title">FAQ Builder</div>
+                            <span class="fdc-icon">❓</span>
+                        </div>
+                        <ul class="sub-feature-list">
+                            <li>Unlimited FAQs</li>
+                            <li>Product FAQs</li>
+                            <li>Collection FAQs</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-detail-card">
+                        <div class="fdc-header">
+                            <div class="fdc-num">04</div>
+                            <div class="fdc-title">Size Charts</div>
+                            <span class="fdc-icon">📐</span>
+                        </div>
+                        <ul class="sub-feature-list">
+                            <li>Popup Size Chart</li>
+                            <li>Product Specific Charts</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-detail-card">
+                        <div class="fdc-header">
+                            <div class="fdc-num">05</div>
+                            <div class="fdc-title">Wishlist</div>
+                            <span class="fdc-icon">❤️</span>
+                        </div>
+                        <ul class="sub-feature-list">
+                            <li>Save Products</li>
+                            <li>Move To Cart</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-detail-card">
+                        <div class="fdc-header">
+                            <div class="fdc-num">06</div>
+                            <div class="fdc-title">Gift Wrap</div>
+                            <span class="fdc-icon">🎁</span>
+                        </div>
+                        <ul class="sub-feature-list">
+                            <li>Gift Message</li>
+                            <li>Gift Packaging Charge</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-detail-card">
+                        <div class="fdc-header">
+                            <div class="fdc-num">07</div>
+                            <div class="fdc-title">Shipping Calculator</div>
+                            <span class="fdc-icon">🚚</span>
+                        </div>
+                        <ul class="sub-feature-list">
+                            <li>Country Based Rates</li>
+                            <li>Weight Based Rates</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-detail-card">
+                        <div class="fdc-header">
+                            <div class="fdc-num">08</div>
+                            <div class="fdc-title">Order Export</div>
+                            <span class="fdc-icon">📤</span>
+                        </div>
+                        <ul class="sub-feature-list">
+                            <li>CSV Export</li>
+                            <li>Excel Export</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-detail-card">
+                        <div class="fdc-header">
+                            <div class="fdc-num">09</div>
+                            <div class="fdc-title">Bulk Product Editor</div>
+                            <span class="fdc-icon">✏️</span>
+                        </div>
+                        <ul class="sub-feature-list">
+                            <li>Bulk Price Update</li>
+                            <li>Bulk Tags Update</li>
+                            <li>Bulk Inventory Update</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-detail-card">
+                        <div class="fdc-header">
+                            <div class="fdc-num">10</div>
+                            <div class="fdc-title">SEO Tools</div>
+                            <span class="fdc-icon">🔍</span>
+                        </div>
+                        <ul class="sub-feature-list">
+                            <li>Missing Meta Detection</li>
+                            <li>Missing Alt Text Detection</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-detail-card">
+                        <div class="fdc-header">
+                            <div class="fdc-num">11</div>
+                            <div class="fdc-title">Store Audit Tool</div>
+                            <span class="fdc-icon">🔎</span>
+                        </div>
+                        <ul class="sub-feature-list">
+                            <li>Homepage Audit</li>
+                            <li>Product Audit</li>
+                            <li>Collection Audit</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-detail-card">
+                        <div class="fdc-header">
+                            <div class="fdc-num">12</div>
+                            <div class="fdc-title">Analytics Dashboard</div>
+                            <span class="fdc-icon">📊</span>
+                        </div>
+                        <ul class="sub-feature-list">
+                            <li>Product Performance</li>
+                            <li>Sales Summary</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-detail-card">
+                        <div class="fdc-header">
+                            <div class="fdc-num">13</div>
+                            <div class="fdc-title">AI Description Generator</div>
+                            <span class="fdc-icon">🤖</span>
+                        </div>
+                        <ul class="sub-feature-list">
+                            <li>Generate Descriptions</li>
+                            <li>Rewrite Descriptions</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-detail-card">
+                        <div class="fdc-header">
+                            <div class="fdc-num">14</div>
+                            <div class="fdc-title">AI SEO Generator</div>
+                            <span class="fdc-icon">🧠</span>
+                        </div>
+                        <ul class="sub-feature-list">
+                            <li>Meta Title</li>
+                            <li>Meta Description</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-detail-card">
+                        <div class="fdc-header">
+                            <div class="fdc-num">15</div>
+                            <div class="fdc-title">AI Support Assistant</div>
+                            <span class="fdc-icon">💬</span>
+                        </div>
+                        <ul class="sub-feature-list">
+                            <li>Customer Questions</li>
+                            <li>Product Questions</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ── Future Features ── -->
+            <div class="tab-panel" id="tab-future">
+                <div class="page-header">
+                    <h2>🔮 Future Features</h2>
+                    <p>Upcoming additions on our product roadmap</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">📅</span> Planned Additions</h3>
+                    <ul class="styled-list">
+                        <li>Abandoned Cart Recovery</li>
+                        <li>WhatsApp Chat Integration</li>
+                        <li>Email Marketing Tools</li>
+                        <li>Review Collection</li>
+                        <li>Loyalty Program</li>
+                        <li>Affiliate Program</li>
+                        <li>Inventory Forecasting</li>
+                        <li>Upsell &amp; Cross Sell</li>
+                        <li>Product Bundles</li>
+                        <li>Subscription Products</li>
+                        <li>COD Rules</li>
+                        <li>Delivery Date Picker</li>
+                        <li>Multi Currency Tools</li>
+                        <li>GST Invoice Generator</li>
+                        <li>Profit Calculator</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ── Pricing ── -->
+            <div class="tab-panel" id="tab-pricing">
+                <div class="page-header">
+                    <h2>💎 Pricing Plans</h2>
+                    <p>Flexible tiers for every merchant stage</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="pricing-grid">
+                    <div class="plan-card">
+                        <div class="plan-name">Free</div>
+                        <div class="plan-price">$0<span>/mo</span></div>
+                        <div class="plan-divider"></div>
+                        <ul class="plan-features">
+                            <li>Product Badges</li>
+                            <li>FAQ Builder</li>
+                            <li>Size Charts</li>
+                            <li>Sticky Add To Cart</li>
+                        </ul>
+                    </div>
+
+                    <div class="plan-card">
+                        <div class="plan-name">Starter</div>
+                        <div class="plan-price">$9<span>/mo</span></div>
+                        <div class="plan-divider"></div>
+                        <ul class="plan-features">
+                            <li>Wishlist</li>
+                            <li>Gift Wrap</li>
+                            <li>Shipping Calculator</li>
+                            <li>Order Export</li>
+                        </ul>
+                    </div>
+
+                    <div class="plan-card featured">
+                        <div class="plan-name">Pro</div>
+                        <div class="plan-price">$19<span>/mo</span></div>
+                        <div class="plan-divider"></div>
+                        <ul class="plan-features">
+                            <li>Bulk Product Editor</li>
+                            <li>Store Audit</li>
+                            <li>SEO Tools</li>
+                            <li>Analytics Dashboard</li>
+                        </ul>
+                    </div>
+
+                    <div class="plan-card">
+                        <div class="plan-name">Premium</div>
+                        <div class="plan-price">$39<span>/mo</span></div>
+                        <div class="plan-divider"></div>
+                        <ul class="plan-features">
+                            <li>AI Description Generator</li>
+                            <li>AI SEO Generator</li>
+                            <li>AI Chat Assistant</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Database ── -->
+            <div class="tab-panel" id="tab-database">
+                <div class="page-header">
+                    <h2>🗄️ Database Tables</h2>
+                    <p>Core schema overview for the application</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="card" style="overflow-x:auto; padding: 0;">
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th>Table Name</th>
+                                <th>Purpose</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><span class="table-tag">shops</span></td><td>Store Information</td></tr>
+                            <tr><td><span class="table-tag">users</span></td><td>User Accounts</td></tr>
+                            <tr><td><span class="table-tag">plans</span></td><td>Subscription Plans</td></tr>
+                            <tr><td><span class="table-tag">wishlists</span></td><td>Wishlist Data</td></tr>
+                            <tr><td><span class="table-tag">faqs</span></td><td>FAQ Records</td></tr>
+                            <tr><td><span class="table-tag">size_charts</span></td><td>Size Chart Data</td></tr>
+                            <tr><td><span class="table-tag">badges</span></td><td>Product Badge Settings</td></tr>
+                            <tr><td><span class="table-tag">gift_wraps</span></td><td>Gift Wrap Settings</td></tr>
+                            <tr><td><span class="table-tag">shipping_rules</span></td><td>Shipping Rules</td></tr>
+                            <tr><td><span class="table-tag">audit_reports</span></td><td>Store Audit Reports</td></tr>
+                            <tr><td><span class="table-tag">seo_reports</span></td><td>SEO Reports</td></tr>
+                            <tr><td><span class="table-tag">ai_generations</span></td><td>AI Generated Content</td></tr>
+                            <tr><td><span class="table-tag">subscriptions</span></td><td>Billing Data</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ── Shopify Tech ── -->
+            <div class="tab-panel" id="tab-shopify">
+                <div class="page-header">
+                    <h2>🏪 Required Shopify Technologies</h2>
+                    <p>Platform-specific APIs and tools we'll use</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="card">
+                    <h3><span class="card-icon">🔧</span> Shopify Requirements</h3>
+                    <div class="tech-grid">
+                        <span class="tech-chip"><span class="tech-chip-dot" style="background:#96bf48"></span> Partner Account</span>
+                        <span class="tech-chip"><span class="tech-chip-dot" style="background:#96bf48"></span> App CLI</span>
+                        <span class="tech-chip"><span class="tech-chip-dot" style="background:#6c63ff"></span> Admin API</span>
+                        <span class="tech-chip"><span class="tech-chip-dot" style="background:#6c63ff"></span> Billing API</span>
+                        <span class="tech-chip"><span class="tech-chip-dot" style="background:#00d4aa"></span> Webhooks</span>
+                        <span class="tech-chip"><span class="tech-chip-dot" style="background:#00d4aa"></span> Polaris</span>
+                        <span class="tech-chip"><span class="tech-chip-dot" style="background:#ff6b6b"></span> App Bridge</span>
+                        <span class="tech-chip"><span class="tech-chip-dot" style="background:#ff6b6b"></span> OAuth Authentication</span>
+                        <span class="tech-chip"><span class="tech-chip-dot" style="background:#f6ad55"></span> Database</span>
+                        <span class="tech-chip"><span class="tech-chip-dot" style="background:#f6ad55"></span> Hosting</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Tech Stack ── -->
+            <div class="tab-panel" id="tab-stack">
+                <div class="page-header">
+                    <h2>🛠️ Recommended Tech Stack</h2>
+                    <p>The technologies powering the toolkit</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-card-icon">⚛️</div>
+                        <h4>Frontend</h4>
+                        <p>React / Remix for server-side rendering and Shopify App Bridge integration.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon">🟢</div>
+                        <h4>Backend</h4>
+                        <p>Node.js with Express or Remix loaders for API routes and webhooks.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon">🐘</div>
+                        <h4>Database</h4>
+                        <p>Supabase (PostgreSQL) for real-time data and easy auth management.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon">▲</div>
+                        <h4>Hosting</h4>
+                        <p>Vercel for edge deployments, automatic CI/CD and zero-config scaling.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon">🧠</div>
+                        <h4>AI Layer</h4>
+                        <p>OpenAI API (optional) for description generation, SEO, and chatbots.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon">💳</div>
+                        <h4>Payments</h4>
+                        <p>Shopify Billing API for seamless in-app subscription management.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Roadmap ── -->
+            <div class="tab-panel" id="tab-roadmap">
+                <div class="page-header">
+                    <h2>🗺️ Development Roadmap</h2>
+                    <p>Phase-by-phase plan to ship the toolkit</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="card">
+                    <div class="roadmap-timeline">
+
+                        <div class="roadmap-phase">
+                            <div class="phase-label">Phase 1 — Foundation</div>
+                            <h4>Free Tier Features</h4>
+                            <ul class="styled-list">
+                                <li>Product Badges</li>
+                                <li>Sticky Add To Cart</li>
+                                <li>FAQ Builder</li>
+                                <li>Size Charts</li>
+                            </ul>
+                        </div>
+
+                        <div class="roadmap-phase">
+                            <div class="phase-label">Phase 2 — Starter</div>
+                            <h4>Commerce Enhancements</h4>
+                            <ul class="styled-list">
+                                <li>Wishlist</li>
+                                <li>Gift Wrap</li>
+                                <li>Shipping Calculator</li>
+                                <li>Order Export</li>
+                            </ul>
+                        </div>
+
+                        <div class="roadmap-phase">
+                            <div class="phase-label">Phase 3 — Pro</div>
+                            <h4>SEO & Analytics</h4>
+                            <ul class="styled-list">
+                                <li>Bulk Product Editor</li>
+                                <li>Store Audit Tool</li>
+                                <li>SEO Tools</li>
+                            </ul>
+                        </div>
+
+                        <div class="roadmap-phase">
+                            <div class="phase-label">Phase 4 — Premium</div>
+                            <h4>AI-Powered Features</h4>
+                            <ul class="styled-list">
+                                <li>AI Description Generator</li>
+                                <li>AI SEO Generator</li>
+                                <li>AI Chatbot</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Free vs Paid ── -->
+            <div class="tab-panel" id="tab-free-vs-paid">
+                <div class="page-header">
+                    <h2>⚖️ Free vs Paid Features</h2>
+                    <p>See what's available on each plan at a glance</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="card" style="overflow-x:auto; padding: 0;">
+                    <table class="plan-compare-table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Free</th>
+                                <th>Starter<br><small style="color:var(--text-muted);font-weight:400">$9/mo</small></th>
+                                <th class="highlight">Pro<br><small style="color:var(--text-muted);font-weight:400">$19/mo</small></th>
+                                <th>Premium<br><small style="color:var(--text-muted);font-weight:400">$39/mo</small></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Product Badges</td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+                            <tr><td>FAQ Builder</td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+                            <tr><td>Size Charts</td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+                            <tr><td>Sticky Add To Cart</td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+                            <tr><td>Wishlist</td><td><span class="check-no">—</span></td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+                            <tr><td>Gift Wrap</td><td><span class="check-no">—</span></td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+                            <tr><td>Shipping Calculator</td><td><span class="check-no">—</span></td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+                            <tr><td>Order Export</td><td><span class="check-no">—</span></td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+                            <tr><td>Bulk Product Editor</td><td><span class="check-no">—</span></td><td><span class="check-no">—</span></td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+                            <tr><td>Store Audit</td><td><span class="check-no">—</span></td><td><span class="check-no">—</span></td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+                            <tr><td>SEO Tools</td><td><span class="check-no">—</span></td><td><span class="check-no">—</span></td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+                            <tr><td>Analytics Dashboard</td><td><span class="check-no">—</span></td><td><span class="check-no">—</span></td><td><span class="check-yes">✓</span></td><td><span class="check-yes">✓</span></td></tr>
+                            <tr><td>AI Description Generator</td><td><span class="check-no">—</span></td><td><span class="check-no">—</span></td><td><span class="check-no">—</span></td><td><span class="check-yes">✓</span></td></tr>
+                            <tr><td>AI SEO Generator</td><td><span class="check-no">—</span></td><td><span class="check-no">—</span></td><td><span class="check-no">—</span></td><td><span class="check-yes">✓</span></td></tr>
+                            <tr><td>AI Chat Assistant</td><td><span class="check-no">—</span></td><td><span class="check-no">—</span></td><td><span class="check-no">—</span></td><td><span class="check-yes">✓</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ── Problems Solved ── -->
+            <div class="tab-panel" id="tab-problems">
+                <div class="page-header">
+                    <h2>💡 Real Problems Solved</h2>
+                    <p>The merchant pain points our app directly addresses</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="problem-solution-grid">
+                    <div class="ps-card problem">
+                        <div class="ps-title">😤 Merchant Wants</div>
+                        <ul class="styled-list">
+                            <li>More sales &amp; higher conversions</li>
+                            <li>Better SEO &amp; search rankings</li>
+                            <li>Better store conversion rate</li>
+                            <li>Faster store management</li>
+                        </ul>
+                    </div>
+
+                    <div class="ps-card solution">
+                        <div class="ps-title">✅ App Provides</div>
+                        <ul class="styled-list">
+                            <li>Conversion tools (badges, wishlist, sticky cart)</li>
+                            <li>SEO tools (meta, alt text, audits)</li>
+                            <li>Automation tools (bulk editor, exports)</li>
+                            <li>AI tools (descriptions, SEO, support)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="margin-top:24px;">
+                    <div class="card">
+                        <h3><span class="card-icon">🎯</span> Value Proposition</h3>
+                        <div class="feature-grid" style="margin-top:16px;">
+                            <div class="feature-card">
+                                <div class="feature-card-icon">📈</div>
+                                <h4>Conversion Tools</h4>
+                                <p>Sticky carts, badges, wishlists and gift wrap to convert more visitors into buyers.</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-card-icon">🔍</div>
+                                <h4>SEO Tools</h4>
+                                <p>Detect missing meta tags, fix alt text, and audit your entire store automatically.</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-card-icon">⚙️</div>
+                                <h4>Automation Tools</h4>
+                                <p>Bulk edit products, export orders and calculate shipping without manual work.</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-card-icon">🤖</div>
+                                <h4>AI Tools</h4>
+                                <p>Generate product descriptions, SEO meta data and handle customer support with AI.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                Shopify Growth Toolkit Documentation v1.0 &nbsp;·&nbsp; Built with ❤️
+            </footer>
+
+        </main>
+    </div>
+
+    <script>
+        function showTab(id) {
+            // Hide all panels
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            // Deactivate all buttons
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+
+            // Show target panel
+            document.getElementById('tab-' + id).classList.add('active');
+            // Activate target button
+            document.getElementById('btn-' + id).classList.add('active');
+
+            // Scroll main to top
+            document.querySelector('.main').scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>
